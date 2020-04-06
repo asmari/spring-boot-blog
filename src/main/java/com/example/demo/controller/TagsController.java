@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.entities.ResponseBase;
-import com.example.demo.entities.model.Category;
-import com.example.demo.repositories.CategoryRepository;
-import com.example.demo.service.CategoryService;
+import com.example.demo.entities.model.Tags;
+import com.example.demo.repositories.TagsRepository;
+import com.example.demo.service.TagsService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,19 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/category")
-public class CategoryController {
+@RequestMapping("/tags")
+public class TagsController {
     @Autowired
-    private CategoryRepository categoryRepository;
+    private TagsRepository tagsRepository;
 
     @Autowired
-    private CategoryService categoryService;
+    private TagsService tagsService;
 
     @GetMapping()
-    public ResponseEntity<ResponseBase> getCategory(){
+    public ResponseEntity<ResponseBase> getTags(){
         ResponseBase response = new ResponseBase<>();
         try{
-            response.setData(categoryRepository.findAll());
+            response.setData(tagsRepository.findAll());
         }catch (Exception e){
             response.setStatus(false);
             response.setCode(500);
@@ -35,21 +35,21 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseBase> getCategoryById(@PathVariable Integer id)throws NotFoundException {
+    public ResponseEntity<ResponseBase> getTagsById(@PathVariable Integer id)throws NotFoundException {
         ResponseBase response = new ResponseBase<>();
 
 
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Category id " + id + " NotFound"));
+        Tags Tags = tagsRepository.findById(id).orElseThrow(() -> new NotFoundException("Tags id " + id + " NotFound"));
 
-        response.setData(category);
+        response.setData(Tags);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping()
-    public ResponseEntity<ResponseBase> postCategory(@RequestBody Category category){
+    public ResponseEntity<ResponseBase> postTags(@RequestBody Tags Tags){
         ResponseBase response =new ResponseBase<>();
         try{
-            response.setData(categoryRepository.save(category));
+            response.setData(tagsRepository.save(Tags));
 
         }catch (Exception e){
             response.setStatus(false);
@@ -62,11 +62,11 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseBase> putCategory(@PathVariable Integer id, @RequestBody Category category)throws NotFoundException{
+    public ResponseEntity<ResponseBase> putTags(@PathVariable Integer id, @RequestBody Tags Tags)throws NotFoundException{
         ResponseBase response = new ResponseBase();
-        categoryRepository.findById(id).orElseThrow(()->new NotFoundException("Category id " + id + " NotFound"));
+        tagsRepository.findById(id).orElseThrow(()->new NotFoundException("Tags id " + id + " NotFound"));
         try{
-            response.setData(categoryService.update(id,category));
+            response.setData(tagsService.update(id,Tags));
         }catch (Exception e){
             response.setStatus(false);
             response.setCode(500);
@@ -79,10 +79,10 @@ public class CategoryController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<ResponseBase> deleteCategory(@RequestBody Category category){
+    public ResponseEntity<ResponseBase> deleteTags(@RequestBody Tags Tags){
         ResponseBase response = new ResponseBase();
         try {
-            categoryRepository.deleteById(category.getId());
+            tagsRepository.deleteById(Tags.getId());
         }catch (Exception e){
             response.setStatus(false);
             response.setCode(500);

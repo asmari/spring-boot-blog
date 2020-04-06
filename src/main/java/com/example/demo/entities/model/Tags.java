@@ -1,5 +1,6 @@
 package com.example.demo.entities.model;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "tags")
 @Getter
 @Setter
 @ToString
-public class Category implements Serializable {
+public class Tags implements Serializable {
 
 
     @Id
@@ -39,3 +40,4 @@ public class Category implements Serializable {
     @UpdateTimestamp
     private Date updated_at;
 }
+
