@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.entities.ResponseBase;
-import com.example.demo.entities.model.Tags;
-import com.example.demo.repositories.TagsRepository;
+import com.example.demo.config.ResponseBaseConfiguration;
+import com.example.demo.model.Tags;
+import com.example.demo.repository.TagsRepository;
 import com.example.demo.service.TagsService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class TagsController {
     private TagsService tagsService;
 
     @GetMapping()
-    public ResponseEntity<ResponseBase> getTags(){
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> getTags(){
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
         try{
             response.setData(tagsRepository.findAll());
         }catch (Exception e){
@@ -35,8 +35,8 @@ public class TagsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseBase> getTagsById(@PathVariable Integer id)throws NotFoundException {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> getTagsById(@PathVariable Integer id)throws NotFoundException {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
 
         Tags Tags = tagsRepository.findById(id).orElseThrow(() -> new NotFoundException("Tags id " + id + " NotFound"));
@@ -46,8 +46,8 @@ public class TagsController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping()
-    public ResponseEntity<ResponseBase> postTags(@RequestBody Tags Tags){
-        ResponseBase response =new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> postTags(@RequestBody Tags Tags){
+        ResponseBaseConfiguration response =new ResponseBaseConfiguration<>();
         try{
             response.setData(tagsRepository.save(Tags));
 
@@ -62,8 +62,8 @@ public class TagsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseBase> putTags(@PathVariable Integer id, @RequestBody Tags Tags)throws NotFoundException{
-        ResponseBase response = new ResponseBase();
+    public ResponseEntity<ResponseBaseConfiguration> putTags(@PathVariable Integer id, @RequestBody Tags Tags)throws NotFoundException{
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration();
         tagsRepository.findById(id).orElseThrow(()->new NotFoundException("Tags id " + id + " NotFound"));
         try{
             response.setData(tagsService.update(id,Tags));
@@ -79,8 +79,8 @@ public class TagsController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<ResponseBase> deleteTags(@RequestBody Tags Tags){
-        ResponseBase response = new ResponseBase();
+    public ResponseEntity<ResponseBaseConfiguration> deleteTags(@RequestBody Tags Tags){
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration();
         try {
             tagsRepository.deleteById(Tags.getId());
         }catch (Exception e){

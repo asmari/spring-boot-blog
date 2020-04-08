@@ -1,15 +1,15 @@
-package com.example.demo.entities;
+package com.example.demo.config;
 
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ResponseFail
+ * ResponseFailConfiguration
  */
 @Getter
 @Setter
-public class ResponseFail {
+public class ResponseFailConfiguration {
 
     private Boolean status = false;
     private Integer code = 500;

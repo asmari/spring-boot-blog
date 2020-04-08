@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.entities.ResponseBase;
-import com.example.demo.entities.model.Author;
-import com.example.demo.entities.request.AuthorDto;
-import com.example.demo.entities.request.AuthorPasswordDto;
-import com.example.demo.repositories.AuthorRepository;
+import com.example.demo.config.ResponseBaseConfiguration;
+import com.example.demo.model.Author;
+import com.example.demo.dto.AuthorDto;
+import com.example.demo.dto.AuthorPasswordDto;
+import com.example.demo.repository.AuthorRepository;
 import com.example.demo.service.AuthorService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class AuthorController {
     private AuthorService authorService;
 
     @GetMapping()
-    public ResponseEntity<ResponseBase> getAuthor(@RequestParam(value = "username", required=false)  String username) {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> getAuthor(@RequestParam(value = "username", required=false)  String username) {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
         if (username != null) {
             response.setData(authorRepository.findByUsername(username));
@@ -38,8 +38,8 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ResponseBase> getAuthorById(@PathVariable Integer id) throws NotFoundException {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> getAuthorById(@PathVariable Integer id) throws NotFoundException {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
         Author author = authorRepository.findById(id).orElseThrow(() -> new NotFoundException("Author id " + id + " NotFound"));
 
@@ -49,8 +49,8 @@ public class AuthorController {
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseBase> postAuthor(@RequestBody Author author) {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> postAuthor(@RequestBody Author author) {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
         try {
             response.setData(authorService.save(author));
@@ -67,8 +67,8 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseBase> putAuthor(@PathVariable Integer id, @RequestBody AuthorDto authorDto) throws NotFoundException {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> putAuthor(@PathVariable Integer id, @RequestBody AuthorDto authorDto) throws NotFoundException {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
         Author author = authorRepository.findById(id).orElseThrow(() -> new NotFoundException("Author id " + id + " NotFound"));
 
@@ -90,8 +90,8 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}/password")
-    public ResponseEntity<ResponseBase> putPaswordAuthor(@PathVariable Integer id, @RequestBody AuthorPasswordDto authorPasswordDto) throws NotFoundException {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> putPaswordAuthor(@PathVariable Integer id, @RequestBody AuthorPasswordDto authorPasswordDto) throws NotFoundException {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
         Author author = authorRepository.findById(id).orElseThrow(() -> new NotFoundException("Author id " + id + " NotFound"));
 
@@ -111,8 +111,8 @@ public class AuthorController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<ResponseBase> deleteAuthor(@RequestBody Author author) {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> deleteAuthor(@RequestBody Author author) {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
         try {
             authorRepository.deleteById(author.getId());

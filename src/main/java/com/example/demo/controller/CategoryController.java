@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.entities.ResponseBase;
-import com.example.demo.entities.model.Category;
-import com.example.demo.repositories.CategoryRepository;
+import com.example.demo.config.ResponseBaseConfiguration;
+import com.example.demo.model.Category;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.CategoryService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping()
-    public ResponseEntity<ResponseBase> getCategory(){
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> getCategory(){
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
         try{
             response.setData(categoryRepository.findAll());
         }catch (Exception e){
@@ -35,8 +35,8 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseBase> getCategoryById(@PathVariable Integer id)throws NotFoundException {
-        ResponseBase response = new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> getCategoryById(@PathVariable Integer id)throws NotFoundException {
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration<>();
 
 
         Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Category id " + id + " NotFound"));
@@ -46,8 +46,8 @@ public class CategoryController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping()
-    public ResponseEntity<ResponseBase> postCategory(@RequestBody Category category){
-        ResponseBase response =new ResponseBase<>();
+    public ResponseEntity<ResponseBaseConfiguration> postCategory(@RequestBody Category category){
+        ResponseBaseConfiguration response =new ResponseBaseConfiguration<>();
         try{
             response.setData(categoryRepository.save(category));
 
@@ -62,8 +62,8 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseBase> putCategory(@PathVariable Integer id, @RequestBody Category category)throws NotFoundException{
-        ResponseBase response = new ResponseBase();
+    public ResponseEntity<ResponseBaseConfiguration> putCategory(@PathVariable Integer id, @RequestBody Category category)throws NotFoundException{
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration();
         categoryRepository.findById(id).orElseThrow(()->new NotFoundException("Category id " + id + " NotFound"));
         try{
             response.setData(categoryService.update(id,category));
@@ -79,8 +79,8 @@ public class CategoryController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<ResponseBase> deleteCategory(@RequestBody Category category){
-        ResponseBase response = new ResponseBase();
+    public ResponseEntity<ResponseBaseConfiguration> deleteCategory(@RequestBody Category category){
+        ResponseBaseConfiguration response = new ResponseBaseConfiguration();
         try {
             categoryRepository.deleteById(category.getId());
         }catch (Exception e){

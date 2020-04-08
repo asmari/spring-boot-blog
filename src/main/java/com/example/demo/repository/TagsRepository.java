@@ -1,7 +1,6 @@
-package com.example.demo.repositories;
+package com.example.demo.repository;
 
-import com.example.demo.entities.model.Category;
-import com.example.demo.entities.model.Tags;
+import com.example.demo.model.Tags;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TagsRepository extends JpaRepository<Tags,Integer> {

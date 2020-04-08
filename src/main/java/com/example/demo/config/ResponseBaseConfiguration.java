@@ -1,14 +1,14 @@
-package com.example.demo.entities;
+package com.example.demo.config;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ResponseBase
+ * ResponseBaseConfiguration
  */
 @Getter
 @Setter
-public class ResponseBase <Any> {
+public class ResponseBaseConfiguration<Any> {
     private Boolean status = true;
     private Integer code = 200;
     private String message = "Success";

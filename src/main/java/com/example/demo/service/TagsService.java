@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.entities.model.Tags;
-import com.example.demo.repositories.TagsRepository;
+import com.example.demo.model.Tags;
+import com.example.demo.repository.TagsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

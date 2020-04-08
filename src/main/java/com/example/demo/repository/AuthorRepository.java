@@ -1,6 +1,6 @@
-package com.example.demo.repositories;
+package com.example.demo.repository;
 
-import com.example.demo.entities.model.Author;
+import com.example.demo.model.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
