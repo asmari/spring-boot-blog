@@ -1,12 +1,14 @@
 package com.example.demo.model;
 
 
+import com.example.demo.dto.response.TagsResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -39,5 +41,6 @@ public class Tags implements Serializable {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss",timezone="GMT+7")
     @UpdateTimestamp
     private Date updated_at;
+
 }
 
