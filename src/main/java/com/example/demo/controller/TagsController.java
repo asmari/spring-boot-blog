@@ -29,26 +29,26 @@ public class TagsController {
 
     @GetMapping()
     public ResponseBaseConfiguration<CustomPageConfiguration<TagsResponseDto>> listTags(
-            CustomPageableConfiguration pageable, @RequestParam(required = false) String param, HttpServletRequest request
+            CustomPageableConfiguration pageable, @RequestParam(required = false) String search, HttpServletRequest request
     ) {
         Page<TagsResponseDto> tags;
-        log.info(String.valueOf(param));
-        if (param == null || param.isEmpty()) {
+        log.info(String.valueOf(search));
+        if (search == null || search.isEmpty()) {
             tags = tagsService.findAll(CustomPageableConfiguration.convertToPageable(pageable));
         } else {
-            tags = tagsService.findByNameLike(CustomPageableConfiguration.convertToPageable(pageable),param);
+            tags = tagsService.findByNameLike(CustomPageableConfiguration.convertToPageable(pageable),search);
         }
 
         PageConverter<TagsResponseDto> converter = new PageConverter<>();
         String url = String.format("%s://%s:%d/tags",request.getScheme(),  request.getServerName(), request.getServerPort());
 
-        String search = "";
+        String searchParam = "";
 
-        if(param != null){
-            search += "&param="+param;
+        if(search != null){
+            searchParam += "&search="+search;
         }
 
-        CustomPageConfiguration<TagsResponseDto> response = converter.convert(tags, url, search);
+        CustomPageConfiguration<TagsResponseDto> response = converter.convert(tags, url, searchParam);
 
         return ResponseBaseConfiguration.ok(response);
     }
