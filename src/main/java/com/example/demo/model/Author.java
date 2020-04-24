@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -47,6 +48,10 @@ public class Author implements Serializable {
     @Column(length = 150, nullable = false)
     @NotBlank
     private String password;
+
+    @Column(length = 45)
+    @Size(min = 3, max = 45)
+    private Blob token;
 
     @Column(updatable = false)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss",timezone="GMT+7")
