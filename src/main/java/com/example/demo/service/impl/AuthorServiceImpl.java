@@ -4,6 +4,7 @@ import com.example.demo.dto.request.AuthorPasswordRequestDto;
 import com.example.demo.dto.request.AuthorRequestDto;
 import com.example.demo.dto.response.AuthorResponseDTo;
 import com.example.demo.model.Author;
+import com.example.demo.model.Tags;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.service.AuthorService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +34,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Page<AuthorResponseDTo> findByNameContaining(Pageable pageable, String name) {
+    public Page<AuthorResponseDTo> findByNameContaining(Pageable pageable, String search) {
         try {
-            return authorRepository.findByUsernameContainingOrLast_nameContainingOrLast_nameContaining(name, pageable).map(this::fromEntity);
+            return authorRepository.findByUsernameContaining(search, pageable).map(this::fromEntity);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw e;
@@ -54,7 +55,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author save(AuthorRequestDto request) {
-        return null;
+        try {
+            Author author = new Author();
+            BeanUtils.copyProperties(request, author);
+
+            return authorRepository.save(author);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        }
     }
 
     @Override

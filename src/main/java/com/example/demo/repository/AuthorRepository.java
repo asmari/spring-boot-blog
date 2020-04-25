@@ -4,6 +4,7 @@ import com.example.demo.model.Author;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * AuthorRepository
@@ -11,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     Author findByUsername(String username);
-
-    Page<Author> findByUsernameContainingOrLast_nameContainingOrLast_nameContaining(String search, Pageable pageable);
+    @Transactional(readOnly = true)
+    Page<Author> findByUsernameContaining(String search, Pageable pageable);
 }
