@@ -17,5 +17,6 @@ public interface AuthorService {
     AuthorResponseDTo findById(Integer id);
     Author save(AuthorRequestDto request);
     Author update(Integer id, AuthorRequestDto request);
+    Author findByUsername(String username);
     void deleteById(Integer id);
 }
