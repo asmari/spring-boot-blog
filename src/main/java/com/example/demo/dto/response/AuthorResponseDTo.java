@@ -1,11 +1,13 @@
 package com.example.demo.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Data
 public class AuthorResponseDTo<T> {
 
     @Column(length = 45, nullable = false)
